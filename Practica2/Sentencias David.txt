@@ -1,0 +1,51 @@
+--Sentencias SQL DER 2 
+David Rodriguez
+
+mysql> use Cervezeria;
+
+mysql> CREATE TABLE cerveza ( id_cerveza INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> nombre VARCHAR(30) NOT NULL,
+    -> detalle VARCHAR(30) NOT NULL
+    -> );
+
+mysql> CREATE TABLE materia_prima ( id_materiaprima INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> nombre VARCHAR(30) NOT NULL,
+    -> detalle VARCHAR(30) NOT NULL);
+
+mysql> CREATE TABLE categoria ( id_categoria INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> nombre VARCHAR(30) NOT NULL,
+    -> detalle VARCHAR(30) NOT NULL);
+
+mysql> CREATE TABLE tipo ( id_tipo INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    -> nombre VARCHAR(30) NOT NULL
+    -> );
+
+ALTER TABLE cerveza ADD COLUMN id_categoria INT;
+
+ALTER TABLE cerveza ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+
+
+CREATE TABLE tipo_categoria ( id_tipo_categoria INT PRIMARY KEY AUTO_INCREMENT);
+
+ALTER TABLE tipo_categoria ADD COLUMN id_tipo INT;
+
+ALTER TABLE tipo_categoria ADD FOREIGN KEY (id_tipo) REFERENCES tipo(id_tipo);
+
+
+ALTER TABLE tipo_categoria ADD COLUMN id_categoria INT;
+
+ALTER TABLE tipo_categoria ADD FOREIGN KEY (id_categoria) REFERENCES categoria(id_categoria);
+
+CREATE TABLE cerveza_materiaprima ( id_cervezamateriaprima INT PRIMARY KEY AUTO_INCREMENT,
+    -> cantidad VARCHAR(30) NOT NULL,
+    -> unidad VARCHAR(30) NOT NULL );
+
+
+ALTER TABLE cerveza_materiaprima ADD COLUMN id_cerveza INT;
+
+ALTER TABLE cerveza_materiaprima ADD FOREIGN KEY (id_cerveza) REFERENCES cerveza (id_cerveza);
+
+
+ALTER TABLE cerveza_materiaprima ADD COLUMN id_materiaprima INT;
+
+ALTER TABLE cerveza_materiaprima ADD FOREIGN KEY (id_materiaprima) REFERENCES materia_prima (id_materiaprima);
